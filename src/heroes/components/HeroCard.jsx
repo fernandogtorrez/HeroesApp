@@ -1,44 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+
 export const HeroCard = ({
     id,
-    superhero,
-    publisher,
-    alter_ego,
-    first_appearance,
-    characters,
+    name,
+    biography,
+    images,
 }) => {
 
-const heroImageUrl = `/assets/heroes/${ id }.jpg`;
-
   return (
-    <div className='col animate__animated animate__fadeIn'>
-        <div className="card">
-            <div className="row no-glutters">
-                <div className="col-4">
-                    <img src={heroImageUrl} alt={superhero} className='card-img' />
-                </div>
-                <div className="col-8">
-                    <div className="card-body">
-                        <h5 className="card-title">{ superhero }</h5>
-                        <p className="card-text">{ alter_ego }</p>
-                        {
-                            (alter_ego !== characters) && (<p>{characters}</p>)   
-                        }
-                        <p className="card-text">
-                            <small className='text-muted'>
-                                {first_appearance}
-                            </small>
-                        </p>
-
-                        <Link to={`/hero/${id}`}>
-                            More info...
-                        </Link>
-                    </div>
-                </div>
+    <>
+        <div className="contenedor animate__animated animate__fadeIn">
+            <div className="card">
+                <figure className="card__thumb">
+                    <img src={images.sm} alt={name} className="card__image"/>
+                    <figcaption className="card__caption">
+                        <h2 className="card__title">{ name }</h2>
+                        <p className="card__snippet">{biography.firstAppearance}</p>
+                        <Link to={`/hero/${id}`} className="card__button">More info</Link>
+                    </figcaption>
+                </figure>
             </div>
-        </div> 
-    </div>
+        </div>
+    </>
   )
 }

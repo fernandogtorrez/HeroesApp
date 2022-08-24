@@ -1,20 +1,54 @@
-import React, { useMemo } from 'react'
-
-import { getHeroesByPublishers } from '../helpers/getHeroesByPublishers'
+import React from 'react'
+import { useHeroes } from '../../hooks/useHeroes'
+import {useCounter} from '../../hooks/useCounter'
+import { SearchByPublisher } from './SearchByPublisher'
+import { Pagination } from '../../ui/components/Pagination'
 import { HeroCard } from './HeroCard'
 
 export const HeroList = ({ publisher }) => {
 
-    // TODO: Tarea 2 utilizando la funcion getHeroesByPublisher guardar el resultado en un useMemo y renderizar una lista
-    const heroes = useMemo(() => getHeroesByPublishers(publisher), [publisher])
+  const { getHeroesByPublishers } = useHeroes()
+  const heroes = getHeroesByPublishers(publisher)
+
+  const {counter, decrement, increment, reset} = useCounter(1)
+  const maxHeroes = 20
+  const lastPage = Math.ceil(heroes?.length / maxHeroes)
+  const setReset = () => reset(1)
 
   return (
-    <div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3'>       
-            {
-                heroes.map(hero => (
+    <>
+    <SearchByPublisher setReset={setReset}/>
+      <div className='products_menu'>
+        <span>
+          <Pagination
+            page={counter}
+            decrement={decrement}
+            increment={increment}
+            lastPage={lastPage}
+          />
+        </span>
+      </div>
+      <div className='row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3'>       
+              {heroes
+                ?.slice(
+                  (counter - 1) * maxHeroes,
+                  (counter - 1) * maxHeroes + maxHeroes
+                )
+                .map(hero => (
                     <HeroCard key={hero.id} {...hero} />
                 ))
-            }     
-    </div>
+              }     
+      </div>
+      <div className='products_menu'>
+        <span>
+          <Pagination
+            page={counter}
+            decrement={decrement}
+            increment={increment}
+            lastPage={lastPage}
+          />
+        </span>
+      </div>
+    </>
   )
 }

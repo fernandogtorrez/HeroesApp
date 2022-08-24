@@ -13,7 +13,7 @@ const init = () => {
 
     return{
         logged: !!user,
-        user,
+        user: user,
     }
 }
 
