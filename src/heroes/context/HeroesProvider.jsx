@@ -10,6 +10,7 @@ export const HeroesProvider = ({children}) => {
     const getHeroById = (id) =>{
         return data?.find(hero => hero.id === id)
     }
+    
     const getHeroByName = (name = '') => {
         name = name.toLowerCase().trim()
         if(name.length === 0) return []
@@ -17,6 +18,7 @@ export const HeroesProvider = ({children}) => {
             hero => hero.name.toLowerCase().includes(name)
         )
     }
+
     const getHeroesByPublishers = (publisher) => {
         publisher = publisher.toLowerCase().trim()
         if(publisher.length === 0) return []
@@ -25,10 +27,12 @@ export const HeroesProvider = ({children}) => {
             return hero.biography?.publisher?.toLowerCase().includes(publisher)
         })
     }
+
     const getPublishers = () => {
         const publishers = data?.map(hero => hero.biography.publisher).filter((value, index, self) => self.indexOf(value) === index && value != null)
         return publishers
     }
+
     const state = {
         data,
         isLoading,
