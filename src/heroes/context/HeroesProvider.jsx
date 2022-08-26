@@ -44,7 +44,8 @@ export const HeroesProvider = ({children}) => {
         getHeroesByPublishers,
         getPublishers
     }
-  return (//provee a todos los componentes de este contexto de toda la informacion que pasamos por aca
+
+  return (
     <HeroesContext.Provider value={{state,actions}}>
         {children}
     </HeroesContext.Provider>

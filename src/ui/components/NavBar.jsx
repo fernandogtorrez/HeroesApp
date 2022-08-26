@@ -1,14 +1,18 @@
 import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../auth/context/AuthContext';
-
-// TODO: Primera Tarea: En el componente Navbar.jsx agregar la clase active utilizando el callback que ofrecen los NavLinks de react-router-dom en su atributo className.
+import { SearchByPublisher } from '../../heroes/components/SearchByPublisher';
+import {useCounter} from '../../hooks/useCounter'
 
 export const Navbar = () => {
 
     const navigate = useNavigate()
 
     const {user,logout} = useContext(AuthContext)
+
+    const {reset} = useCounter(1)
+
+    const setReset = () => reset(1)
 
     const isActive = ({isActive}) => `nav-item nav-link ${ isActive ? 'active' : ''}`
     
@@ -52,8 +56,12 @@ export const Navbar = () => {
                     >
                         Search
                     </NavLink>
+                    
                 </div>
+                <SearchByPublisher setReset={setReset}/>
+                
             </div>
+            
  
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav ml-auto">

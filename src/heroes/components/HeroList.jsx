@@ -13,11 +13,10 @@ export const HeroList = ({ publisher }) => {
   const {counter, decrement, increment, reset} = useCounter(1)
   const maxHeroes = 20
   const lastPage = Math.ceil(heroes?.length / maxHeroes)
-  const setReset = () => reset(1)
 
   return (
     <>
-    <SearchByPublisher setReset={setReset}/>
+    
       <div className='products_menu'>
         <span>
           <Pagination

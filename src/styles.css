@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap');
   * {
-    font-family: "Bangers", Helvetica, sans-serif;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 20px;
   }
+
   
   .contenedor {
     display: flex;
