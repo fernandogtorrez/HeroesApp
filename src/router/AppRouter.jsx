@@ -1,31 +1,23 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { LoginPage } from '../auth/pages/LoginPage'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { HeroesRoutes } from '../heroes/routes/HeroesRoutes'
-import { PrivateRoute } from './PrivateRoute'
-import { PublicRoutes } from './PublicRoutes'
+import { useCheckAuth } from '../hooks/useCheckAuth'
+import { CheckingAuth } from '../auth/components/CheckingAuth'
+import { AuthRoutes } from '../auth/routes/AuthRoutes'
 
 export const AppRouter = () => {
+  const {status} = useCheckAuth()
+  if(status === 'checking') return <CheckingAuth/>
   return (
     <>          
-          <Routes>
-            <Route
-              path='login'
-              element={
-                <PublicRoutes>
-                  <LoginPage />
-                </PublicRoutes>
-              }
-            />
-
-            <Route
-              path='/*'
-              element={
-                <PrivateRoute>
-                  <HeroesRoutes />
-                </PrivateRoute>
-              } />
-          </Routes> 
+      <Routes>
+        {
+          status === 'authenticated'
+          ? <Route path='/*' element={<HeroesRoutes />} />
+          : <Route path='/auth/*' element={<AuthRoutes/>}/>
+        }
+        <Route path='/*' element={<Navigate to='/auth/login'/>}/>
+        
+      </Routes> 
     </>
   )
 }
