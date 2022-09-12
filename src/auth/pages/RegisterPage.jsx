@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from '../../hooks/useForm'
 import { useDispatch } from "react-redux";
 import { startCreatingUserWithEmail } from "../store/auth/thunks";
-import comic from '../../image/comic.jpg'
+import comic from '../../image/comic3.jpg'
 import {
   Button,
   Flex,
@@ -63,6 +63,7 @@ export const RegisterPage = () => {
     displayNameValid,
     passwordValid,
     emailValid,
+    FormErrorMessage
   } = useForm(formData,formValidations)
 
   const onLogin = (e) => {
@@ -92,7 +93,7 @@ export const RegisterPage = () => {
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
       
         <Stack spacing={4} w={'full'} maxW={'md'} >
-          <FormLabel fontSize={30} textAlign={'center'}>Inicia Sesion</FormLabel>
+          <FormLabel fontSize={30} textAlign={'center'}>Registro de Usuario</FormLabel>
           <FormControl id="displayName">
             <Input 
               type="text"
@@ -101,6 +102,9 @@ export const RegisterPage = () => {
               value={displayName}
               onChange={onInputChange}
               sx={{mb:2}}
+              isInvalid={!!displayNameValid && formSubmited}
+              isRequired={formSubmited && displayNameValid}
+
             />
             </FormControl>
             <FormControl id="email">
@@ -111,6 +115,8 @@ export const RegisterPage = () => {
               value={email}
               onChange={onInputChange}
               sx={{mb:2}}
+              isInvalid={!!emailValid && formSubmited}
+              isRequired={formSubmited && emailValid}
             />
             </FormControl >
             <FormControl id="password">
@@ -121,6 +127,8 @@ export const RegisterPage = () => {
               value={password}
               onChange={onInputChange}
               sx={{mb:2}}
+              isInvalid={!!passwordValid && formSubmited}
+              isRequired={formSubmited && passwordValid}
             />
             </FormControl>
           <Stack spacing={6}>
